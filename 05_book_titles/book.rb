@@ -2,19 +2,17 @@ class Book
   attr_accessor :title
 
   def title=(title)
-    arr = []
-
     conjunctions = ["and", "in", "the", "of", "a", "an"]
+    title = title.split(" ")
 
-    title.split.each_with_index do |word, index|
-      if !conjunctions.include?(word) || index == 0
-        word =~ /^(^[\w])(.*)$/x
-        arr.push($1.upcase + $2)
+    title = [title[0].capitalize] +
+    title[1..-1].map do |word|
+      if !conjunctions.include?(word)
+        word.capitalize
       else
-        arr.push(word)
+        word
       end
     end
-
-    @title = arr.join(" ")
+    @title = title.join(" ")
   end
 end
